@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      body {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHLVatlEakaFwaiF3o4I4AhO-swRzZJGBJUA&s");
+        background-position: center;
+      }
+      h3 {
+        text-align: center;
+        color: rgb(47, 0, 0);
+        margin-top: 20px;
+        font-size: x-large;
+        height: 25px;
+      }
+      #mainContainer {
+        margin: 20px auto;
+        width: min(500px, 90%);
+        height: 600px;
+        background-image: url("https://img.freepik.com/free-photo/grunge-paper-background_1048-10791.jpg?size=626&ext=jpg&ga=GA1.1.1700460183.1712880000&semt=ais");
+        background-size: cover;
+      }
+      #EnterField {
+        margin: auto;
+        width: 90%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+      }
+      input {
+        text-align: center;
+        height: 30px;
+        width: 100%;
+        border-radius: 10px;
+      }
+      #inputButton {
+        width: 180px;
+        height: 25px;
+        background-color: transparent;
+        border: none;
+        font-size: larger;
+        color: white;
+        background-image: url("pencil.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+      }
+      .listItems {
+        margin: auto;
+        height: 80%;
+        width: 90%;
+      }
+      ol {
+        width: 100%;
+        max-height: 450px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        /* gap: 5px; */
+        scrollbar-color: rgb(0, 0, 0) transparent;
+        scrollbar-width: thin;
+      }
+      li {
+        background-color: rgba(165, 150, 150, 0.089);
+        display: flex;
+        padding: 4px 40px;
+
+        justify-content: space-between;
+        align-items: center;
+        /* height: 30px; */
+        color: rgb(40, 40, 40);
+        border-radius: 15px;
+        border-bottom: 1px solid black;
+      }
+      .delete {
+        height: 20px;
+        width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(40, 40, 40);
+        font-weight: bold;
+        font-size: small;
+        border: none;
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+        background: linear-gradient(
+          to right,
+          rgb(255, 96, 122) 0%,
+          pink 50%,
+          paleturquoise 50%,
+          paleturquoise 100%
+        );
+      }
+      @media screen and (max-width: 600px) {
+        #mainContainer {
+          height: 500px;
+        }
+        li {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h3></h3>
+    <section id="mainContainer">
+      <div id="EnterField">
+        <input
+          type="text"
+          name=""
+          placeholder="Enter Your Task Here"
+          id="inputField"
+        />
+        <button id="inputButton">Add</button>
+      </div>
+      <div class="listItems">
+        <ol></ol>
+      </div>
+    </section>
+
+    <script>
+      let inp = document.getElementById("inputField"); // Variable for Input Field.
+      let enterBtn = document.getElementById("inputButton"); // Variable for button that adds the task.
+      let TodoList = document.querySelector(".listItems").querySelector("ol"); // Variable for ordered list.
+      enterBtn.addEventListener("click", () => {
+        if (inp.value.trim() != "") {
+          let li = document.createElement("li"); // List element created.
+          li.innerText = inp.value; // Text added into list;
+          TodoList.append(li); // Element created gets added into the ordered list.
+          inp.value = ""; // Value of input field gets reset.
+
+          let DeleteBtn = document.createElement("button"); // Delete button created.
+          DeleteBtn.classList.add("delete"); // class name added in Delete button.
+          DeleteBtn.innerText = "Erase"; // innerText added into delete button.
+
+          li.appendChild(DeleteBtn); // Delete button added into list field.
+        }
+        //IF THE INPUT FIELD IS EMPTY THEN THIS WILL RUN.
+        else {
+          document.querySelector("h3").innerText = "Can't add empty task";
+          setTimeout(() => {
+            document.querySelector("h3").innerText = "";
+          }, 2000);
+        }
+      });
+      //Functionality of delete button.
+      TodoList.addEventListener("click", (event) => {
+        if (event.target.nodeName == "BUTTON") {
+          event.target.parentNode.remove();
+        }
+      });
+    </script>
+  </body>
+</html>
